@@ -1,28 +1,18 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
-//route ["Action"] is the name of the method
 
 [Route("[Action]")]
-
-//apicontroller
 [ApiController]
-
 public class HomeController : Controller
 {
-
     [HttpGet]
-
     public string addProduct()
     {
-
-        //check User Hash Claims "permisons": [
-//     "addproduct",
-//     "deleteproduct",
-//     "updateproduct",
-//     "getproduct"
-//   ],
        
-        if(User.HasClaim(c => c.Type == "permisons" && c.Value.Contains("addproduct")))
+        if(User.HasClaim(c => c.Type == "permisons" && c.Value.Contains("AddProduct")))
         {
             return "Hello World";
         }
@@ -30,16 +20,16 @@ public class HomeController : Controller
         {
             return "No Permissions";
         }
-       
-       
     }
 
 
     [HttpGet]
     public string getProduct()
     {
-         //check User Hash Claims
-        if(User.HasClaim(c => c.Type == "permisons" && c.Value.Contains( "getproduct") ))
+
+        var x = User.Claims;
+        //check User Hash Claims
+        if (User.HasClaim(c => c.Type == "permisons" && c.Value.Contains("GetProduct") ))
         {
             return "Hello World";
         }
@@ -50,11 +40,12 @@ public class HomeController : Controller
         
     }
 
+
     [HttpGet]
     public string updateProduct()
     {
          //check User Hash Claims
-        if(User.HasClaim(c => c.Type == "permisons" && c.Value.Contains("updateproduct")))
+        if(User.HasClaim(c => c.Type == "permisons" && c.Value.Contains("UpdateProduct")))
         {
             return "Hello World";
         }
@@ -64,11 +55,12 @@ public class HomeController : Controller
         }
     }
 
+
     [HttpGet]
     public string deleteProduct()
     {
             //check User Hash Claims
-            if(User.HasClaim(c => c.Type == "permisons" && c.Value.Contains("deleteproduct")))
+            if(User.HasClaim(c => c.Type == "permisons" && c.Value.Contains("DeleteProduct")))
             {
                 return "Hello World";
             }
